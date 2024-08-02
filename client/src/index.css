@@ -1,3 +1,11 @@
+body{
+  background-image:'./assets/Wallpaper.png' ;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  height: 100vh;
+  margin: 0;
+}
 
 .center-container{
   display: flex;
@@ -13,6 +21,7 @@
   margin: auto;
   gap: 10px;
 }
+
 input{
   width: 100%;
   height: 35px;
@@ -34,9 +43,8 @@ input::placeholder {
   opacity: 1; /* Fully opaque */
 }
 
-
 button{
-  background-color:rgb(157, 216, 196);
+  background-color:rgb(85, 138, 163);
   color: rgb(0, 0, 0);
   padding: 15px 32px;
   text-align: center;

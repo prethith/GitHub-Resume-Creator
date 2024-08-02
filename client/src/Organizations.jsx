@@ -25,7 +25,7 @@ function Organizations({ username }) {
     }
 
     fetchOrganizations();
-  }, [username]);
+  });
 
   if (loading) {
     return <div>Loading...</div>;
@@ -44,7 +44,10 @@ function Organizations({ username }) {
         organizations.map((org) => (
           <div key={org.id}>
             <p>
-              <strong>Organization Name:</strong> <a href={org.html_url} target="_blank" rel="noopener noreferrer">{org.login}</a>
+              <strong>Organization Name:</strong>{" "}
+              <a href={org.html_url} target="_blank" rel="noopener noreferrer">
+                {org.login}
+              </a>
             </p>
           </div>
         ))

@@ -13,7 +13,7 @@ function Repositories({ username }) {
           `https://api.github.com/users/${username}/repos?sort=updated&per_page=5`,
           {
             headers: {
-              Authorization: `token ${import.meta.env.REACT_APP_GITHUB_TOKEN}`,
+              Authorization: `token ${import.meta.env.VITE_GITHUB_TOKEN}`,
             },
           }
         );
@@ -30,7 +30,7 @@ function Repositories({ username }) {
     }
 
     fetchRepos();
-  }, [username]);
+  }, []);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -54,8 +54,7 @@ function Repositories({ username }) {
             <strong>Description:</strong> {repo.description || "N/A"}
           </p>
           <p>
-            <strong>Language(s) Used:</strong>{" "}
-            {repo.language || "N/A"}
+            <strong>Language(s) Used:</strong> {repo.language || "N/A"}
           </p>
           <p>
             <strong>Star Count:</strong> {repo.stargazers_count}

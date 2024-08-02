@@ -13,7 +13,7 @@ function Summary({ username }) {
           `https://api.github.com/users/${username}`,
           {
             headers: {
-              Authorization: `token ${import.meta.env.REACT_APP_GITHUB_TOKEN}`,
+              Authorization: `token ${import.meta.env.VITE_GITHUB_TOKEN}`,
             },
           }
         );
@@ -30,7 +30,7 @@ function Summary({ username }) {
     }
 
     fetchUserData();
-  }, [username]);
+  }, []);
 
   if (loading) {
     return <div>Loading...</div>;

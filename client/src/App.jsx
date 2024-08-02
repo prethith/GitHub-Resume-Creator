@@ -25,15 +25,21 @@ function App() {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        
-      {submitted && <PersonalInformation username={username} />}
-      {submitted && <Summary username={username} />}
-    <div class="center-container">
-      <div class="form-group">
-      <input placeholder="Enter Github Username"/>
-      <button type="submit">Submit</button>
-      </div>
-    </div>
+        {submitted && <PersonalInformation username={username} />}
+        {submitted && <Summary username={username} />}
+        {submitted && <RecentActivity username={username} />}
+        {submitted && <Repositories username={username} />}
+        {submitted && <RecentContributions username={username} />}
+        {submitted && <Organizations username={username} />}
+        <div className="center-container">
+          <div className="form-group">
+            <input
+              placeholder="Enter Github Username"
+              onChange={handleChange}
+            />
+            <button type="submit">Submit</button>
+          </div>
+        </div>
       </form>
     </>
   );

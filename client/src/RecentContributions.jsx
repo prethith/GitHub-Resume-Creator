@@ -16,12 +16,14 @@ function RecentContributions({ username }) {
           `https://api.github.com/search/commits?q=author:${username}&sort=author-date&order=desc&per_page=5`,
           {
             headers: {
-              Accept: 'application/vnd.github.cloak-preview' // Required for the search commits API
-            }
+              Accept: "application/vnd.github.cloak-preview", // Required for the search commits API
+            },
           }
         );
         if (!commitsResponse.ok) {
-          throw new Error(`Error: ${commitsResponse.status} ${commitsResponse.statusText}`);
+          throw new Error(
+            `Error: ${commitsResponse.status} ${commitsResponse.statusText}`
+          );
         }
         const commitsData = await commitsResponse.json();
         setCommits(commitsData.items);
@@ -31,7 +33,9 @@ function RecentContributions({ username }) {
           `https://api.github.com/search/issues?q=author:${username}+type:pr&sort=created&order=desc&per_page=5`
         );
         if (!pullRequestsResponse.ok) {
-          throw new Error(`Error: ${pullRequestsResponse.status} ${pullRequestsResponse.statusText}`);
+          throw new Error(
+            `Error: ${pullRequestsResponse.status} ${pullRequestsResponse.statusText}`
+          );
         }
         const pullRequestsData = await pullRequestsResponse.json();
         setPullRequests(pullRequestsData.items);
@@ -41,7 +45,9 @@ function RecentContributions({ username }) {
           `https://api.github.com/search/issues?q=author:${username}+type:issue&sort=created&order=desc&per_page=5`
         );
         if (!issuesResponse.ok) {
-          throw new Error(`Error: ${issuesResponse.status} ${issuesResponse.statusText}`);
+          throw new Error(
+            `Error: ${issuesResponse.status} ${issuesResponse.statusText}`
+          );
         }
         const issuesData = await issuesResponse.json();
         setIssues(issuesData.items);
@@ -53,7 +59,7 @@ function RecentContributions({ username }) {
     }
 
     fetchRecentContributions();
-  }, [username]);
+  }, []);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -74,7 +80,11 @@ function RecentContributions({ username }) {
           <div key={commit.sha}>
             <p>
               {commit.commit.message} -{" "}
-              <a href={commit.html_url} target="_blank" rel="noopener noreferrer">
+              <a
+                href={commit.html_url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 View Commit
               </a>
             </p>
@@ -104,7 +114,11 @@ function RecentContributions({ username }) {
           <div key={issue.id}>
             <p>
               {issue.title} -{" "}
-              <a href={issue.html_url} target="_blank" rel="noopener noreferrer">
+              <a
+                href={issue.html_url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 View Issue
               </a>
             </p>

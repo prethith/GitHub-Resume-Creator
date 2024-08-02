@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Pie } from "react-chartjs-2";
-import Chart from 'chart.js/auto';
+// import Chart from "chart.js/auto";
 
 function Languages({ username }) {
   const [languagesData, setLanguagesData] = useState([]);
@@ -15,17 +15,16 @@ function Languages({ username }) {
           `https://api.github.com/users/${username}/repos?per_page=100`,
           {
             headers: {
-              Authorization: `token ${import.meta.env.REACT_APP_GITHUB_TOKEN}`,
+              Authorization: `token ${import.meta.env.VITE_GITHUB_TOKEN}`,
             },
           }
-          
         );
         if (!response.ok) {
           throw new Error(`Error: ${response.status} ${response.statusText}`);
         }
         const repos = await response.json();
         const languages = {};
-        repos.forEach(repo => {
+        repos.forEach((repo) => {
           if (repo.language) {
             languages[repo.language] = (languages[repo.language] || 0) + 1;
           }
@@ -39,7 +38,7 @@ function Languages({ username }) {
     }
 
     fetchLanguages();
-  }, [username]);
+  }, []);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -52,22 +51,24 @@ function Languages({ username }) {
   const languageNames = Object.keys(languagesData);
   const languageCounts = Object.values(languagesData);
   const totalRepos = languageCounts.reduce((a, b) => a + b, 0);
-  const languagePercentages = languageCounts.map(count => (count / totalRepos) * 100);
+  const languagePercentages = languageCounts.map(
+    (count) => (count / totalRepos) * 100
+  );
 
   const chartData = {
     labels: languageNames,
     datasets: [
       {
-        label: 'Languages',
+        label: "Languages",
         data: languagePercentages,
         backgroundColor: [
-          '#FF6384',
-          '#36A2EB',
-          '#FFCE56',
-          '#4BC0C0',
-          '#9966FF',
-          '#FF9F40',
-          '#FF6384',
+          "#FF6384",
+          "#36A2EB",
+          "#FFCE56",
+          "#4BC0C0",
+          "#9966FF",
+          "#FF9F40",
+          "#FF6384",
         ],
       },
     ],
@@ -80,9 +81,16 @@ function Languages({ username }) {
       <div>
         {languageNames.map((language, index) => (
           <div key={language}>
-            <p><strong>Language:</strong> {language}</p>
-            <p><strong>Percentage of Use:</strong> {languagePercentages[index].toFixed(2)}%</p>
-            <p><strong>Number of Repositories:</strong> {languageCounts[index]}</p>
+            <p>
+              <strong>Language:</strong> {language}
+            </p>
+            <p>
+              <strong>Percentage of Use:</strong>{" "}
+              {languagePercentages[index].toFixed(2)}%
+            </p>
+            <p>
+              <strong>Number of Repositories:</strong> {languageCounts[index]}
+            </p>
           </div>
         ))}
       </div>

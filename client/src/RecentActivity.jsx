@@ -16,7 +16,7 @@ function RecentActivity({ username }) {
           `https://api.github.com/users/${username}/repos`,
           {
             headers: {
-              Authorization: `token ${import.meta.env.REACT_APP_GITHUB_TOKEN}`,
+              Authorization: `token ${import.meta.env.VITE_GITHUB_TOKEN}`,
             },
           }
         );
@@ -59,7 +59,7 @@ function RecentActivity({ username }) {
     }
 
     fetchRecentActivity();
-  }, [username]);
+  }, []);
 
   if (loading) {
     return <div>Loading...</div>;

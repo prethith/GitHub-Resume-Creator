@@ -1,5 +1,5 @@
 body{
-  background-image:'./assets/Wallpaper.png' ;
+  background-image: url('./assets/Wallpaper.png');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
@@ -28,15 +28,15 @@ input{
   padding: auto;
   margin: 8px 0;
   box-sizing: border-box;
-  border: 3px solid #1d3b36;
+  border: 3px solid #5d81b9;
   border-radius: 4px;
   font-size: 16px;
   outline: none;
   transition: border-color 0.3s;
 }
 input:focus{
-  border-color: #326e63;
-  box-shadow: 0 0 8px 0 rgba(76, 175, 80, 0.2);
+  border-color: #5d81b9;
+  box-shadow: 0 0 8px 0 rgb(85, 138, 163);
 }
 input::placeholder {
   color: #a68c8c; /* Placeholder text color */
@@ -44,7 +44,7 @@ input::placeholder {
 }
 
 button{
-  background-color:rgb(85, 138, 163);
+  background-color:#5d81b9;
   color: rgb(0, 0, 0);
   padding: 15px 32px;
   text-align: center;
@@ -57,5 +57,5 @@ button{
   transition: background-color 0.3s;
 }
 button:hover{
-  background-color: rgb(83, 176, 145);
+  background-color: rgb(229, 176, 229);
 }

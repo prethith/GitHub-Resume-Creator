@@ -3,6 +3,8 @@ import PersonalInformation from "./PersonalInformation";
 import Summary from "./Summary";
 import RecentActivity from "./RecentActivity";
 import Repositories from "./Repositories";
+import RecentContributions from "./RecentContributions";
+import Organizations from "./Organizations";
 
 function App() {
   const [username, setUsername] = useState("");
@@ -32,6 +34,8 @@ function App() {
       </form>
       {submitted && <PersonalInformation username={username} />}
       {submitted && <Summary username={username} />}
+      {submitted && <RecentContributions username={username} />}
+      {submitted && <Organizations username={username} />}
     </>
   );
 }

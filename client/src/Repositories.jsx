@@ -10,7 +10,12 @@ function Repositories({ username }) {
     async function fetchRepos() {
       try {
         const response = await fetch(
-          `https://api.github.com/users/${username}/repos?sort=updated&per_page=5`
+          `https://api.github.com/users/${username}/repos?sort=updated&per_page=5`,
+          {
+            headers: {
+              Authorization: `token ${import.meta.env.REACT_APP_GITHUB_TOKEN}`,
+            },
+          }
         );
         if (!response.ok) {
           throw new Error(`Error: ${response.status} ${response.statusText}`);

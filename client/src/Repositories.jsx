@@ -29,8 +29,10 @@ function Repositories({ username }) {
       }
     }
 
-    fetchRepos();
-  }, []);
+    if (username) {
+      fetchRepos();
+    }
+  }, [username]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -40,13 +42,22 @@ function Repositories({ username }) {
     return <div>Error: {error.message}</div>;
   }
 
+  if (repos.length === 0) {
+    return <div>No repositories found.</div>;
+  }
+
   return (
     <div>
       <h1>Top Repositories</h1>
       {repos.map((repo) => (
         <div key={repo.id}>
           <h2>
-            <a href={repo.html_url} target="_blank" rel="noopener noreferrer">
+            <a
+              href={repo.html_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`View ${repo.name} on GitHub`}
+            >
               {repo.name}
             </a>
           </h2>

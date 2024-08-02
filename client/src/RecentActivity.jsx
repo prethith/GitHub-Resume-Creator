@@ -11,7 +11,7 @@ function RecentActivity({ username }) {
   useEffect(() => {
     async function fetchRecentActivity() {
       try {
-        // Fetch recent commits
+        // Fetch repositories
         const reposResponse = await fetch(
           `https://api.github.com/users/${username}/repos`,
           {
@@ -24,21 +24,43 @@ function RecentActivity({ username }) {
           throw new Error("Network response was not ok");
         }
         const repos = await reposResponse.json();
+
+        if (repos.length === 0) {
+          setLoading(false);
+          return; // No repositories found
+        }
+
         const repoNames = repos.map((repo) => repo.name);
 
+        // Fetch commits, pull requests, and issues
         const commitsPromises = repoNames.map((repoName) =>
           fetch(
-            `https://api.github.com/repos/${username}/${repoName}/commits?per_page=5`
+            `https://api.github.com/repos/${username}/${repoName}/commits?per_page=5`,
+            {
+              headers: {
+                Authorization: `token ${import.meta.env.VITE_GITHUB_TOKEN}`,
+              },
+            }
           ).then((response) => response.json())
         );
         const pullRequestsPromises = repoNames.map((repoName) =>
           fetch(
-            `https://api.github.com/repos/${username}/${repoName}/pulls?per_page=5`
+            `https://api.github.com/repos/${username}/${repoName}/pulls?per_page=5`,
+            {
+              headers: {
+                Authorization: `token ${import.meta.env.VITE_GITHUB_TOKEN}`,
+              },
+            }
           ).then((response) => response.json())
         );
         const issuesPromises = repoNames.map((repoName) =>
           fetch(
-            `https://api.github.com/repos/${username}/${repoName}/issues?per_page=5`
+            `https://api.github.com/repos/${username}/${repoName}/issues?per_page=5`,
+            {
+              headers: {
+                Authorization: `token ${import.meta.env.VITE_GITHUB_TOKEN}`,
+              },
+            }
           ).then((response) => response.json())
         );
 
@@ -58,8 +80,10 @@ function RecentActivity({ username }) {
       }
     }
 
-    fetchRecentActivity();
-  }, []);
+    if (username) {
+      fetchRecentActivity();
+    }
+  }, [username]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -75,8 +99,8 @@ function RecentActivity({ username }) {
       <div>
         <h3>Recent Commits</h3>
         {commits.length > 0 ? (
-          commits.map((commit, index) => (
-            <p key={index}>
+          commits.map((commit) => (
+            <p key={commit.sha}>
               <strong>{commit.commit.message}</strong> -{" "}
               <a
                 href={commit.html_url}
@@ -94,8 +118,8 @@ function RecentActivity({ username }) {
       <div>
         <h3>Recent Pull Requests</h3>
         {pullRequests.length > 0 ? (
-          pullRequests.map((pr, index) => (
-            <p key={index}>
+          pullRequests.map((pr) => (
+            <p key={pr.id}>
               <strong>{pr.title}</strong> -{" "}
               <a href={pr.html_url} target="_blank" rel="noopener noreferrer">
                 View Pull Request
@@ -109,8 +133,8 @@ function RecentActivity({ username }) {
       <div>
         <h3>Recent Issues</h3>
         {issues.length > 0 ? (
-          issues.map((issue, index) => (
-            <p key={index}>
+          issues.map((issue) => (
+            <p key={issue.id}>
               <strong>{issue.title}</strong> -{" "}
               <a
                 href={issue.html_url}

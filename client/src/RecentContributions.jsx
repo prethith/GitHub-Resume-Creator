@@ -17,6 +17,7 @@ function RecentContributions({ username }) {
           {
             headers: {
               Accept: "application/vnd.github.cloak-preview", // Required for the search commits API
+              Authorization: `token ${import.meta.env.VITE_GITHUB_TOKEN}`,
             },
           }
         );
@@ -30,7 +31,12 @@ function RecentContributions({ username }) {
 
         // Fetch recent pull requests
         const pullRequestsResponse = await fetch(
-          `https://api.github.com/search/issues?q=author:${username}+type:pr&sort=created&order=desc&per_page=5`
+          `https://api.github.com/search/issues?q=author:${username}+type:pr&sort=created&order=desc&per_page=5`,
+          {
+            headers: {
+              Authorization: `token ${import.meta.env.VITE_GITHUB_TOKEN}`,
+            },
+          }
         );
         if (!pullRequestsResponse.ok) {
           throw new Error(
@@ -42,7 +48,12 @@ function RecentContributions({ username }) {
 
         // Fetch recent issues
         const issuesResponse = await fetch(
-          `https://api.github.com/search/issues?q=author:${username}+type:issue&sort=created&order=desc&per_page=5`
+          `https://api.github.com/search/issues?q=author:${username}+type:issue&sort=created&order=desc&per_page=5`,
+          {
+            headers: {
+              Authorization: `token ${import.meta.env.VITE_GITHUB_TOKEN}`,
+            },
+          }
         );
         if (!issuesResponse.ok) {
           throw new Error(
@@ -58,8 +69,10 @@ function RecentContributions({ username }) {
       }
     }
 
-    fetchRecentContributions();
-  }, []);
+    if (username) {
+      fetchRecentContributions();
+    }
+  }, [username]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -80,6 +93,7 @@ function RecentContributions({ username }) {
           <div key={commit.sha}>
             <p>
               {commit.commit.message} -{" "}
+              {new Date(commit.commit.author.date).toLocaleDateString()} -{" "}
               <a
                 href={commit.html_url}
                 target="_blank"

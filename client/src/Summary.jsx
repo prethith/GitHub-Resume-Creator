@@ -3,13 +3,15 @@ import PropTypes from "prop-types";
 
 function Summary({ username }) {
   const [userData, setUserData] = useState(null);
+  const [repoData, setRepoData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    async function fetchUserData() {
+    async function fetchData() {
       try {
-        const response = await fetch(
+        // Fetch user data
+        const userResponse = await fetch(
           `https://api.github.com/users/${username}`,
           {
             headers: {
@@ -17,11 +19,26 @@ function Summary({ username }) {
             },
           }
         );
-        if (!response.ok) {
+        if (!userResponse.ok) {
           throw new Error("Network response was not ok");
         }
-        const data = await response.json();
-        setUserData(data);
+        const userData = await userResponse.json();
+        setUserData(userData);
+
+        // Fetch repositories data
+        const repoResponse = await fetch(
+          `https://api.github.com/users/${username}/repos`,
+          {
+            headers: {
+              Authorization: `token ${import.meta.env.VITE_GITHUB_TOKEN}`,
+            },
+          }
+        );
+        if (!repoResponse.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const repos = await repoResponse.json();
+        setRepoData(repos);
       } catch (error) {
         setError(error);
       } finally {
@@ -29,8 +46,10 @@ function Summary({ username }) {
       }
     }
 
-    fetchUserData();
-  }, []);
+    if (username) {
+      fetchData();
+    }
+  }, [username]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -39,6 +58,12 @@ function Summary({ username }) {
   if (error) {
     return <div>Error: {error.message}</div>;
   }
+
+  const totalStars = repoData.reduce(
+    (sum, repo) => sum + repo.stargazers_count,
+    0
+  );
+  const totalForks = repoData.reduce((sum, repo) => sum + repo.forks_count, 0);
 
   return (
     <div>
@@ -54,14 +79,10 @@ function Summary({ username }) {
         <strong>Total Repositories:</strong> {userData.public_repos}
       </p>
       <p>
-        <strong>Total Stars:</strong>{" "}
-        {userData.public_repos ? userData.public_repos * 5 : "N/A"}{" "}
-        {/* Replace with actual stars calculation if available */}
+        <strong>Total Stars:</strong> {totalStars || "N/A"}
       </p>
       <p>
-        <strong>Total Forks:</strong>{" "}
-        {userData.public_repos ? userData.public_repos * 3 : "N/A"}{" "}
-        {/* Replace with actual forks calculation if available */}
+        <strong>Total Forks:</strong> {totalForks || "N/A"}
       </p>
       <p>
         <strong>Total Followers:</strong> {userData.followers}

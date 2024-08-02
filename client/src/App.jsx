@@ -5,6 +5,7 @@ import RecentActivity from "./RecentActivity";
 import Repositories from "./Repositories";
 import RecentContributions from "./RecentContributions";
 import Organizations from "./Organizations";
+import Languages from "./Languages";
 
 function App() {
   const [username, setUsername] = useState("");
@@ -27,10 +28,11 @@ function App() {
       <form onSubmit={handleSubmit}>
         {submitted && <PersonalInformation username={username} />}
         {submitted && <Summary username={username} />}
-        {submitted && <RecentActivity username={username} />}
+        {/* {submitted && <RecentActivity username={username} />} */}
         {submitted && <Repositories username={username} />}
         {submitted && <RecentContributions username={username} />}
-        {submitted && <Organizations username={username} />}
+        {/* {submitted && <Languages username={username} />} */}
+        {/* {submitted && <Organizations username={username} />} */}
         <div className="center-container">
           <div className="form-group">
             <input

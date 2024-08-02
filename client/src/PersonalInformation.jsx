@@ -29,89 +29,84 @@ function UserProfile({ username }) {
       }
     }
 
-    fetchUserData();
-  }, []);
+    if (username) {
+      fetchUserData();
+    }
+  }, [username]);
 
   if (loading) {
     return <div>Loading...</div>;
   }
 
   if (error) {
-    return <div>Error: {error.message}</div>;
+    return <div>Error fetching user data: {error.message}</div>;
+  }
+
+  if (!userData) {
+    return <div>No user data found.</div>;
   }
 
   return (
     <div>
       <h1>User Profile</h1>
-      {userData && (
-        <div>
-          <div>
-            <img
-              src={userData.avatar_url}
-              alt={`${userData.login}'s avatar`}
-              width="100"
-            />
-            <p>
-              <strong>Username:</strong> {userData.login}
-            </p>
-            <p>
-              <strong>Full Name:</strong> {userData.name || "N/A"}
-            </p>
-            <p>
-              <strong>Bio:</strong> {userData.bio || "N/A"}
-            </p>
-            <p>
-              <strong>Location:</strong> {userData.location || "N/A"}
-            </p>
-            <p>
-              <strong>Company:</strong> {userData.company || "N/A"}
-            </p>
-            <p>
-              <strong>Blog:</strong>{" "}
-              {userData.blog ? (
-                <a
-                  href={userData.blog}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {userData.blog}
-                </a>
-              ) : (
-                "N/A"
-              )}
-            </p>
-          </div>
-          <div>
-            <h2>Summary</h2>
-            <p>
-              <strong>Bio:</strong> {userData.bio || "N/A"}
-            </p>
-            <p>
-              <strong>Total Contributions:</strong>{" "}
-              {userData.public_repos + userData.public_gists}
-            </p>
-            <p>
-              <strong>Total Repositories:</strong> {userData.public_repos}
-            </p>
-            <p>
-              <strong>Total Stars:</strong>{" "}
-              {userData.public_repos ? userData.public_repos * 5 : "N/A"}{" "}
-              {/* Replace with actual stars calculation if available */}
-            </p>
-            <p>
-              <strong>Total Forks:</strong>{" "}
-              {userData.public_repos ? userData.public_repos * 3 : "N/A"}{" "}
-              {/* Replace with actual forks calculation if available */}
-            </p>
-            <p>
-              <strong>Total Followers:</strong> {userData.followers}
-            </p>
-            <p>
-              <strong>Total Following:</strong> {userData.following}
-            </p>
-          </div>
-        </div>
-      )}
+      <div>
+        <img
+          src={userData.avatar_url}
+          alt={`${userData.login}'s avatar`}
+          width="100"
+        />
+        <p>
+          <strong>Username:</strong> {userData.login}
+        </p>
+        <p>
+          <strong>Full Name:</strong> {userData.name || "N/A"}
+        </p>
+        <p>
+          <strong>Bio:</strong> {userData.bio || "N/A"}
+        </p>
+        <p>
+          <strong>Location:</strong> {userData.location || "N/A"}
+        </p>
+        <p>
+          <strong>Company:</strong> {userData.company || "N/A"}
+        </p>
+        <p>
+          <strong>Blog:</strong>{" "}
+          {userData.blog ? (
+            <a href={userData.blog} target="_blank" rel="noopener noreferrer">
+              {userData.blog}
+            </a>
+          ) : (
+            "N/A"
+          )}
+        </p>
+      </div>
+      <div>
+        <h2>Summary</h2>
+        <p>
+          <strong>Total Contributions:</strong>{" "}
+          {userData.public_repos + userData.public_gists}
+        </p>
+        <p>
+          <strong>Total Repositories:</strong> {userData.public_repos}
+        </p>
+        <p>
+          <strong>Total Stars:</strong>{" "}
+          {userData.public_repos ? userData.public_repos * 5 : "N/A"}{" "}
+          {/* Replace with actual stars calculation if available */}
+        </p>
+        <p>
+          <strong>Total Forks:</strong>{" "}
+          {userData.public_repos ? userData.public_repos * 3 : "N/A"}{" "}
+          {/* Replace with actual forks calculation if available */}
+        </p>
+        <p>
+          <strong>Total Followers:</strong> {userData.followers}
+        </p>
+        <p>
+          <strong>Total Following:</strong> {userData.following}
+        </p>
+      </div>
     </div>
   );
 }

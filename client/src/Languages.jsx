@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Pie } from "react-chartjs-2";
-// import Chart from "chart.js/auto";
+import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement } from "chart.js";
+
+// Register Chart.js components
+ChartJS.register(ArcElement, Tooltip, Legend, Title);
 
 function Languages({ username }) {
-  const [languagesData, setLanguagesData] = useState([]);
+  const [languagesData, setLanguagesData] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -37,8 +40,10 @@ function Languages({ username }) {
       }
     }
 
-    fetchLanguages();
-  }, []);
+    if (username) {
+      fetchLanguages();
+    }
+  }, [username]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -50,10 +55,31 @@ function Languages({ username }) {
 
   const languageNames = Object.keys(languagesData);
   const languageCounts = Object.values(languagesData);
+
+  if (languageNames.length === 0) {
+    return <div>No language data available.</div>;
+  }
+
   const totalRepos = languageCounts.reduce((a, b) => a + b, 0);
   const languagePercentages = languageCounts.map(
     (count) => (count / totalRepos) * 100
   );
+
+  const colors = [
+    "#FF6384",
+    "#36A2EB",
+    "#FFCE56",
+    "#4BC0C0",
+    "#9966FF",
+    "#FF9F40",
+    "#FF6384",
+    "#36A2EB",
+    "#FFCE56",
+    "#4BC0C0",
+    "#9966FF",
+    "#FF9F40",
+  ];
+  const backgroundColors = colors.slice(0, languageNames.length);
 
   const chartData = {
     labels: languageNames,
@@ -61,23 +87,31 @@ function Languages({ username }) {
       {
         label: "Languages",
         data: languagePercentages,
-        backgroundColor: [
-          "#FF6384",
-          "#36A2EB",
-          "#FFCE56",
-          "#4BC0C0",
-          "#9966FF",
-          "#FF9F40",
-          "#FF6384",
-        ],
+        backgroundColor: backgroundColors,
       },
     ],
+  };
+
+  const chartOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top",
+      },
+      tooltip: {
+        callbacks: {
+          label: (tooltipItem) => {
+            return `${tooltipItem.label}: ${tooltipItem.raw.toFixed(2)}%`;
+          },
+        },
+      },
+    },
   };
 
   return (
     <div>
       <h1>Most Used Languages</h1>
-      <Pie data={chartData} />
+      <Pie data={chartData} options={chartOptions} />
       <div>
         {languageNames.map((language, index) => (
           <div key={language}>

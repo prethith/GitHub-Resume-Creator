@@ -110,7 +110,7 @@ function Languages({ username }) {
 
   return (
     <div>
-      <h1>Most Used Languages</h1>
+      <h1 className="Headsub">Most Used Languages</h1>
       <Pie data={chartData} options={chartOptions} />
       <div>
         {languageNames.map((language, index) => (

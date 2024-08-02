@@ -37,7 +37,7 @@ function OpenSourceProjects({ username }) {
 
   return (
     <div>
-      <h1>Contributions to Open Source Projects</h1>
+      <h1 className="Headsub">Contributions to Open Source Projects</h1>
       {contributions.length === 0 ? (
         <p>No contributions found.</p>
       ) : (

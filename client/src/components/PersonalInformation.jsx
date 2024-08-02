@@ -48,7 +48,7 @@ function UserProfile({ username }) {
 
   return (
     <div>
-      <h1>User Profile</h1>
+      <h1 className="headline">User Profile</h1>
       <div>
         <img
           src={userData.avatar_url}
@@ -82,7 +82,7 @@ function UserProfile({ username }) {
         </p>
       </div>
       <div>
-        <h2>Summary</h2>
+        <h2 className="Headsub">Summary</h2>
         <p>
           <strong>Total Contributions:</strong>{" "}
           {userData.public_repos + userData.public_gists}

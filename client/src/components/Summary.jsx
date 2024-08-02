@@ -67,7 +67,7 @@ function Summary({ username }) {
 
   return (
     <div>
-      <h2>Summary</h2>
+      <h2 className="Headsub">Summary</h2>
       <p>
         <strong>Bio:</strong> {userData.bio || "N/A"}
       </p>

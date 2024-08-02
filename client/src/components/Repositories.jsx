@@ -48,7 +48,7 @@ function Repositories({ username }) {
 
   return (
     <div>
-      <h1>Top Repositories</h1>
+      <h1 className="Headsub">Top Repositories</h1>
       {repos.map((repo) => (
         <div key={repo.id}>
           <h2>

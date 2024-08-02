@@ -1,13 +1,13 @@
 import { useState } from "react";
-import PersonalInformation from "./PersonalInformation";
-import Summary from "./Summary";
-import RecentActivity from "./RecentActivity";
-import Repositories from "./Repositories";
-import RecentContributions from "./RecentContributions";
-import Organizations from "./Organizations";
-import Languages from "./Languages";
-import Projects from "./Projects";
-import OpenSourceProjects from "./OpenSourceProjects";
+import PersonalInformation from "./components/PersonalInformation";
+import Summary from "./components/Summary";
+import RecentActivity from "./components/RecentActivity";
+import Repositories from "./components/Repositories";
+import RecentContributions from "./components/RecentContributions";
+import Organizations from "./components/Organizations";
+import Languages from "./components/Languages";
+import Projects from "./components/Projects";
+import OpenSourceProjects from "./components/OpenSourceProjects";
 
 function App() {
   const [username, setUsername] = useState("");

@@ -84,8 +84,8 @@ function RecentContributions({ username }) {
 
   return (
     <div>
-      <h1>Recent Contributions</h1>
-      <h2>Recent Commits</h2>
+      <h1 className="Headsub">Recent Contributions</h1>
+      <h2 className="sub">Recent Commits</h2>
       {commits.length === 0 ? (
         <p>No recent commits found.</p>
       ) : (
@@ -105,7 +105,7 @@ function RecentContributions({ username }) {
           </div>
         ))
       )}
-      <h2>Recent Pull Requests</h2>
+      <h2 className="sub">Recent Pull Requests</h2>
       {pullRequests.length === 0 ? (
         <p>No recent pull requests found.</p>
       ) : (
@@ -120,7 +120,7 @@ function RecentContributions({ username }) {
           </div>
         ))
       )}
-      <h2>Recent Issues</h2>
+      <h2 className="sub">Recent Issues</h2>
       {issues.length === 0 ? (
         <p>No recent issues found.</p>
       ) : (

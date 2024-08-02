@@ -95,9 +95,9 @@ function RecentActivity({ username }) {
 
   return (
     <div>
-      <h2>Recent Activity</h2>
+      <h2 className="Headsub">Recent Activity</h2>
       <div>
-        <h3>Recent Commits</h3>
+        <h3 className="sub">Recent Commits</h3>
         {commits.length > 0 ? (
           commits.map((commit) => (
             <p key={commit.sha}>
@@ -116,7 +116,7 @@ function RecentActivity({ username }) {
         )}
       </div>
       <div>
-        <h3>Recent Pull Requests</h3>
+        <h3 className="sub">Recent Pull Requests</h3>
         {pullRequests.length > 0 ? (
           pullRequests.map((pr) => (
             <p key={pr.id}>
@@ -131,7 +131,7 @@ function RecentActivity({ username }) {
         )}
       </div>
       <div>
-        <h3>Recent Issues</h3>
+        <h3 className="sub">Recent Issues</h3>
         {issues.length > 0 ? (
           issues.map((issue) => (
             <p key={issue.id}>

@@ -1,11 +1,3 @@
-body{
-  background-image: url('./assets/Wallpaper.png');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
-  height: 100vh;
-  margin: 0;
-}
 
 .center-container{
   display: flex;
@@ -58,4 +50,45 @@ button{
 }
 button:hover{
   background-color: rgb(229, 176, 229);
+}
+body{
+  background-image: url('./assets/Wallpaper.png');
+  background-size: cover;
+  background-repeat: repeat;
+  background-position: center center;
+  height: 100vh;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  padding: 0;
+  color: #000;
+}
+div {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.headline{
+  text-align: center;
+  font-size: 40px;
+  font-family: Georgia;
+  color: #0d3b85;
+  margin-bottom: 20px;
+}
+.Headsub{
+  font-size: 35px;
+  font-family: Georgia;
+  border-bottom: 2px solid #eee;
+  color: #0d3b85;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+.sub{
+  border-bottom: 2px solid #eee;
+  color: #1e4f9e;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
 }

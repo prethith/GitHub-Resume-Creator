@@ -37,7 +37,7 @@ function Projects({ username }) {
 
   return (
     <div>
-      <h1>Projects</h1>
+      <h1 className="Headsub">Projects</h1>
       {projects.length === 0 ? (
         <p>No projects found.</p>
       ) : (

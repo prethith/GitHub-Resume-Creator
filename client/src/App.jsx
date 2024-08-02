@@ -1,5 +1,6 @@
 import { useState } from "react";
 import PersonalInformation from "./PersonalInformation";
+import Summary from "./Summary";
 
 function App() {
   const [username, setUsername] = useState("");
@@ -29,6 +30,7 @@ function App() {
         <button type="submit">Enter</button>
       </form>
       {submitted && <PersonalInformation username={username} />}
+      {submitted && <Summary username={username} />}
     </>
   );
 }

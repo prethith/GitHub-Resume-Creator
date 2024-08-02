@@ -1,6 +1,7 @@
 import { useState } from "react";
 import PersonalInformation from "./PersonalInformation";
 import Summary from "./Summary";
+import Repositories from "./Repositories";
 
 function App() {
   const [username, setUsername] = useState("");
@@ -31,6 +32,7 @@ function App() {
       </form>
       {submitted && <PersonalInformation username={username} />}
       {submitted && <Summary username={username} />}
+      {submitted && <Repositories username={username} />}
     </>
   );
 }

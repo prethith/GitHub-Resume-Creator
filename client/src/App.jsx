@@ -1,6 +1,7 @@
 import { useState } from "react";
 import PersonalInformation from "./PersonalInformation";
-import Summary from "./Summary";
+// import Summary from "./Summary";
+import RecentActivity from "./RecentActivity";
 
 function App() {
   const [username, setUsername] = useState("");
@@ -26,11 +27,11 @@ function App() {
           onChange={handleChange}
           placeholder="Enter Github Username"
         />
-        <button type="button">Enter</button>
         <button type="submit">Enter</button>
       </form>
       {submitted && <PersonalInformation username={username} />}
-      {submitted && <Summary username={username} />}
+      {/* {submitted && <Summary username={username} />} */}
+      {submitted && <RecentActivity username={username} />}
     </>
   );
 }

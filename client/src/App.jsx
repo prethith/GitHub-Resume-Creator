@@ -23,8 +23,9 @@ function App() {
         <input
           value={username}
           onChange={handleChange}
-          placeholder="Enter the github username"
+          placeholder="Enter Github Username"
         />
+        <button type="button">Enter</button>
         <button type="submit">Enter</button>
       </form>
       {submitted && <PersonalInformation username={username} />}

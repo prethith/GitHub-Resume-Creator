@@ -1,0 +1,28 @@
+
+
+
+input{
+  width: 40%;
+  padding: auto;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 3px solid #90cabf;
+}
+
+
+button{
+  background-color:rgb(157, 216, 196);
+  color: rgb(0, 0, 0);
+  padding: 15px 32px;
+  text-align: center;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border: 1px solid #000;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+button:hover{
+  background-color: rgb(83, 176, 145);
+}

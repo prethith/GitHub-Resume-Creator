@@ -2,7 +2,7 @@
   position: absolute;
   top: 10px; /* Adjust for desired spacing from the top */
   left: 10px; /* Adjust for desired spacing from the left */
-  height: 50px; /* Adjust height */
+  height: 75px; /* Adjust height */
   width: auto; /* Maintain aspect ratio */
 }
 body {

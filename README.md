@@ -7,10 +7,10 @@
 # Project Name
 Long Description about project. This project do that. This project is awesome...
 ## Team members
-1. Kenz E S(https://github.com/tzzkenz)
-2. Shezma Bijumon(https://github.com/shezmabijumon)
-3. Sooryajith R S(https://github.com/sooryajithrs)
-4. Prathith Chivukula(https://github.com/prethith)
+1. [Kenz E S](https://github.com/tzzkenz)
+2. [Shezma Bijumon](https://github.com/shezmabijumon)
+3. [Sooryajith R S](https://github.com/sooryajithrs)
+4. [Prathith Chivukula](https://github.com/prethith)
 ## Link to product walkthrough
 [link to video](Link Here)
 ## How it Works ?

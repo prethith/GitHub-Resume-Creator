@@ -1,3 +1,10 @@
+.logo {
+  position: absolute;
+  top: 10px; /* Adjust for desired spacing from the top */
+  left: 10px; /* Adjust for desired spacing from the left */
+  height: 50px; /* Adjust height */
+  width: auto; /* Maintain aspect ratio */
+}
 body {
   background-image: url("./assets/Wallpaper.png");
   background-size: cover;
@@ -9,6 +16,7 @@ body {
   line-height: 1.6;
   padding: 0;
   color: #000;
+
 }
 
 .profile-navigation {
@@ -137,14 +145,14 @@ div {
 .headline {
   text-align: center;
   font-size: 40px;
-  font-family: Georgia;
+  font-family: Arial, Helvetica, sans-serif;
   color: #0d3b85;
   margin-bottom: 20px;
 }
 
 .Headsub {
   font-size: 35px;
-  font-family: Georgia;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   border-bottom: 2px solid #eee;
   color: #0d3b85;
   padding-bottom: 10px;
@@ -156,4 +164,29 @@ div {
   color: #1e4f9e;
   padding-bottom: 10px;
   margin-bottom: 10px;
+}
+a:link{
+  color: black;
+}
+a:visited{
+  color: #007bff;
+}
+a:hover{
+  color:rgb(229, 176, 229);
+}
+.toggle-button{
+  background-color: #7fa4df;
+  color: rgb(0, 0, 0);
+  padding: 10px 22px;
+  text-align: center;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border: 1px solid #000;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+.toggle-button:hover {
+  background-color: rgb(191, 136, 245);
 }

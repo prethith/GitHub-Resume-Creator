@@ -67,7 +67,7 @@ function Repositories({ username }) {
       {repos.map((repo) => (
         <div key={repo.id} style={{ marginBottom: "1em" }}>
           <div style={{ display: "flex", alignItems: "center" }}>
-            <h2>
+            <h4>
               <a
                 href={repo.html_url}
                 target="_blank"
@@ -82,7 +82,7 @@ function Repositories({ username }) {
                 style={{ cursor: "pointer", marginLeft: "10px" }}
                 aria-label={`Toggle details for ${repo.name}`}
               />
-            </h2>
+            </h4>
           </div>
           {expandedRepoIds[repo.id] && (
             <div>

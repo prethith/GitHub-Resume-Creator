@@ -15,18 +15,23 @@ function Home() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="center-container">
-        <div className="form-group">
-          <input
-            placeholder="Enter Github Username"
-            onChange={handleChange}
-            value={username}
-          />
-          <button type="submit">Submit</button>
+    <div>
+      <header>
+        <img src="D:\hackn8\github-api\Charlies-angels\client\src\assets\logo.png" alt="Logo" className="logo" />
+      </header>
+      <form onSubmit={handleSubmit}>
+        <div className="center-container">
+          <div className="form-group">
+            <input
+              placeholder="Enter Github Username"
+              onChange={handleChange}
+              value={username}
+            />
+            <button type="submit">Submit</button>
+          </div>
         </div>
-      </div>
-    </form>
+      </form>
+    </div>
   );
 }
 

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
+import axios from "axios";
 
 function RecentContributions({ username }) {
   const [commits, setCommits] = useState([]);
@@ -13,65 +14,55 @@ function RecentContributions({ username }) {
   const [showIssues, setShowIssues] = useState(false);
 
   useEffect(() => {
-    async function fetchRecentContributions() {
+    const fetchRecentContributions = async () => {
+      const token = localStorage.getItem('github_token');
+      if (!token) {
+        setError('Not authenticated');
+        setLoading(false);
+        return;
+      }
+
       try {
         // Fetch recent commits
-        const commitsResponse = await fetch(
+        const commitsResponse = await axios.get(
           `https://api.github.com/search/commits?q=author:${username}&sort=author-date&order=desc&per_page=5`,
           {
             headers: {
               Accept: "application/vnd.github.cloak-preview", // Required for the search commits API
-              Authorization: `token ${import.meta.env.VITE_GITHUB_TOKEN}`,
+              Authorization: `Bearer ${token}`,
             },
           }
         );
-        if (!commitsResponse.ok) {
-          throw new Error(
-            `Error: ${commitsResponse.status} ${commitsResponse.statusText}`
-          );
-        }
-        const commitsData = await commitsResponse.json();
-        setCommits(commitsData.items);
+        setCommits(commitsResponse.data.items);
 
         // Fetch recent pull requests
-        const pullRequestsResponse = await fetch(
+        const pullRequestsResponse = await axios.get(
           `https://api.github.com/search/issues?q=author:${username}+type:pr&sort=created&order=desc&per_page=5`,
           {
             headers: {
-              Authorization: `token ${import.meta.env.VITE_GITHUB_TOKEN}`,
+              Authorization: `Bearer ${token}`,
             },
           }
         );
-        if (!pullRequestsResponse.ok) {
-          throw new Error(
-            `Error: ${pullRequestsResponse.status} ${pullRequestsResponse.statusText}`
-          );
-        }
-        const pullRequestsData = await pullRequestsResponse.json();
-        setPullRequests(pullRequestsData.items);
+        setPullRequests(pullRequestsResponse.data.items);
 
         // Fetch recent issues
-        const issuesResponse = await fetch(
+        const issuesResponse = await axios.get(
           `https://api.github.com/search/issues?q=author:${username}+type:issue&sort=created&order=desc&per_page=5`,
           {
             headers: {
-              Authorization: `token ${import.meta.env.VITE_GITHUB_TOKEN}`,
+              Authorization: `Bearer ${token}`,
             },
           }
         );
-        if (!issuesResponse.ok) {
-          throw new Error(
-            `Error: ${issuesResponse.status} ${issuesResponse.statusText}`
-          );
-        }
-        const issuesData = await issuesResponse.json();
-        setIssues(issuesData.items);
+        setIssues(issuesResponse.data.items);
       } catch (error) {
-        setError(error);
+        // Check if the error response has a message or fallback to a generic message
+        setError(error.response?.data?.message || 'Failed to fetch contributions');
       } finally {
         setLoading(false);
       }
-    }
+    };
 
     if (username) {
       fetchRecentContributions();
@@ -83,7 +74,7 @@ function RecentContributions({ username }) {
   }
 
   if (error) {
-    return <div>Error: {error.message}</div>;
+    return <div>Error: {error}</div>;
   }
 
   return (

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import axios from "axios";
 
 function Organizations({ username }) {
   const [organizations, setOrganizations] = useState([]);
@@ -7,32 +8,43 @@ function Organizations({ username }) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    async function fetchOrganizations() {
+    const fetchOrganizations = async () => {
+      const token = localStorage.getItem('github_token');
+      if (!token) {
+        setError('Not authenticated');
+        setLoading(false);
+        return;
+      }
+
       try {
-        const response = await fetch(
-          `https://api.github.com/users/${username}/orgs`
+        const response = await axios.get(
+          `https://api.github.com/users/${username}/orgs`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
-        if (!response.ok) {
-          throw new Error(`Error: ${response.status} ${response.statusText}`);
-        }
-        const data = await response.json();
-        setOrganizations(data);
+        setOrganizations(response.data);
       } catch (error) {
-        setError(error);
+        setError('Failed to fetch organizations');
+        console.error(error);
       } finally {
         setLoading(false);
       }
-    }
+    };
 
-    fetchOrganizations();
-  });
+    if (username) {
+      fetchOrganizations();
+    }
+  }, [username]);
 
   if (loading) {
     return <div>Loading...</div>;
   }
 
   if (error) {
-    return <div>Error: {error.message}</div>;
+    return <div>Error: {error}</div>;
   }
 
   return (

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Pie } from "react-chartjs-2";
 import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement } from "chart.js";
+import axios from "axios";
 
 // Register Chart.js components
 ChartJS.register(ArcElement, Tooltip, Legend, Title);
@@ -12,20 +13,24 @@ function Languages({ username }) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    async function fetchLanguages() {
+    const fetchLanguages = async () => {
+      const token = localStorage.getItem('github_token');
+      if (!token) {
+        setError('Not authenticated');
+        setLoading(false);
+        return;
+      }
+
       try {
-        const response = await fetch(
+        const response = await axios.get(
           `https://api.github.com/users/${username}/repos?per_page=100`,
           {
             headers: {
-              Authorization: `token ${import.meta.env.VITE_GITHUB_TOKEN}`,
+              Authorization: `Bearer ${token}`,
             },
           }
         );
-        if (!response.ok) {
-          throw new Error(`Error: ${response.status} ${response.statusText}`);
-        }
-        const repos = await response.json();
+        const repos = response.data;
         const languages = {};
         repos.forEach((repo) => {
           if (repo.language) {
@@ -34,11 +39,12 @@ function Languages({ username }) {
         });
         setLanguagesData(languages);
       } catch (error) {
-        setError(error);
+        setError('Failed to fetch language data');
+        console.error(error);
       } finally {
         setLoading(false);
       }
-    }
+    };
 
     if (username) {
       fetchLanguages();
@@ -50,7 +56,7 @@ function Languages({ username }) {
   }
 
   if (error) {
-    return <div>Error: {error.message}</div>;
+    return <div>Error: {error}</div>;
   }
 
   const languageNames = Object.keys(languagesData);

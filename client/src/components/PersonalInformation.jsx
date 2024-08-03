@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import axios from 'axios'; // Make sure to import axios
 
 function UserProfile({ username }) {
   const [userData, setUserData] = useState(null);
@@ -7,31 +8,28 @@ function UserProfile({ username }) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    async function fetchUserData() {
+    const fetchUserData = async () => {
+      const token = localStorage.getItem('github_token');
+      if (!token) {
+        setError('Not authenticated');
+        setLoading(false);
+        return;
+      }
+
       try {
-        const response = await fetch(
-          `https://api.github.com/users/${username}`,
-          {
-            headers: {
-              Authorization: `token ${import.meta.env.VITE_GITHUB_TOKEN}`,
-            },
-          }
-        );
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data = await response.json();
-        setUserData(data);
-      } catch (error) {
-        setError(error);
-      } finally {
+        const response = await axios.get(`https://api.github.com/users/${username}`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        setUserData(response.data);
+        setLoading(false);
+      } catch (err) {
+        setError('User not found');
+        setUserData(null);
         setLoading(false);
       }
-    }
+    };
 
-    if (username) {
-      fetchUserData();
-    }
+    fetchUserData();
   }, [username]);
 
   if (loading) {
@@ -39,7 +37,7 @@ function UserProfile({ username }) {
   }
 
   if (error) {
-    return <div>Error fetching user data: {error.message}</div>;
+    return <div>Error fetching user data: {error}</div>;
   }
 
   if (!userData) {

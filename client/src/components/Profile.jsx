@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import PersonalInformation from "./PersonalInformation";
 import Repositories from "./Repositories";
 import RecentContributions from "./RecentContributions";
-import Projects from "./Projects";
 import Languages from "./Languages";
 import Organizations from "./Organizations";
 import ProfileNavigation from "./ProfileNavigation";
@@ -12,7 +11,6 @@ const steps = [
   PersonalInformation,
   Repositories,
   RecentContributions,
-  Projects,
   Languages,
   Organizations,
 ];

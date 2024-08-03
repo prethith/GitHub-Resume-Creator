@@ -48,7 +48,7 @@ function Organizations({ username }) {
   }
 
   return (
-    <div>
+    <div id="organizations">
       <h1 className="Headsub">Organizations</h1>
       {organizations.length === 0 ? (
         <p>No organizations found.</p>

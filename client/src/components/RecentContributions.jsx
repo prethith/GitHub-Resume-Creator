@@ -78,7 +78,7 @@ function RecentContributions({ username }) {
   }
 
   return (
-    <div>
+    <div id="recent-contributions">
       <h1 className="Headsub">Recent Contributions</h1>
 
       <div>

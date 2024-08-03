@@ -109,7 +109,7 @@ function Languages({ username }) {
   };
 
   return (
-    <div>
+    <div id="languages">
       <h1 className="Headsub">Most Used Languages</h1>
       <Pie data={chartData} options={chartOptions} />
       <div>

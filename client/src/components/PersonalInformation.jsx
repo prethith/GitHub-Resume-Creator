@@ -47,7 +47,7 @@ function UserProfile({ username }) {
   }
 
   return (
-    <div>
+    <div id="user-profile">
       <h1 className="headline">User Profile</h1>
       <div>
         <img

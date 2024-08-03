@@ -14,14 +14,14 @@
 ## Link to product walkthrough
 [link to video](Link Here)
 ## How Does it Work?
-#### The boring theory version
+### The boring theory version
 1. **Authenticate Your Session:**\
 Log in to GitHub and a personal access token is created by GitHub, which is then accessed by a proxy server through API calls after exchanging the client ID and client secret. This token is used to securely access your data.
 2.**Enter Your GitHub Username:** Input your GitHub username into GitResume.
 3. **Fetch Data:** GitResume uses the GitHub API to pull data related to your contributions, repositories, stars, and followers.
 
 4. **Generate Resume:** The app formats the retrieved data into a professional resume.
-#### The awesome video version
+### The awesome video version
 embed video link here
 ## Libraries used
 | Library name    | Version |

@@ -178,5 +178,5 @@ export const generateCombinedPDF = async (
     y += 2;
   });
 
-  doc.save("github_resume.pdf");
+  doc.save(`${userData.login}-github-resume.pdf`);
 };

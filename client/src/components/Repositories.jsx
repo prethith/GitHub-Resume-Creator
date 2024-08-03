@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 
 function Repositories({ username }) {
   const [repos, setRepos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [expandedRepoIds, setExpandedRepoIds] = useState({});
 
   useEffect(() => {
     async function fetchRepos() {
       try {
         const response = await fetch(
-          `https://api.github.com/users/${username}/repos?sort=updated&per_page=5`,
+          `https://api.github.com/users/${username}/repos?sort=updated&per_page=100`,
           {
             headers: {
               Authorization: `token ${import.meta.env.VITE_GITHUB_TOKEN}`,
@@ -21,7 +24,12 @@ function Repositories({ username }) {
           throw new Error(`Error: ${response.status} ${response.statusText}`);
         }
         const data = await response.json();
-        setRepos(data);
+
+        // Sort repos by star count in descending order
+        const sortedRepos = data.sort(
+          (a, b) => b.stargazers_count - a.stargazers_count
+        );
+        setRepos(sortedRepos);
       } catch (error) {
         setError(error);
       } finally {
@@ -33,6 +41,13 @@ function Repositories({ username }) {
       fetchRepos();
     }
   }, [username]);
+
+  const toggleExpand = (id) => {
+    setExpandedRepoIds((prevState) => ({
+      ...prevState,
+      [id]: !prevState[id],
+    }));
+  };
 
   if (loading) {
     return <div>Loading...</div>;
@@ -50,29 +65,41 @@ function Repositories({ username }) {
     <div>
       <h1 className="Headsub">Top Repositories</h1>
       {repos.map((repo) => (
-        <div key={repo.id}>
-          <h2>
-            <a
-              href={repo.html_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`View ${repo.name} on GitHub`}
-            >
-              {repo.name}
-            </a>
-          </h2>
-          <p>
-            <strong>Description:</strong> {repo.description || "N/A"}
-          </p>
-          <p>
-            <strong>Language(s) Used:</strong> {repo.language || "N/A"}
-          </p>
-          <p>
-            <strong>Star Count:</strong> {repo.stargazers_count}
-          </p>
-          <p>
-            <strong>Fork Count:</strong> {repo.forks_count}
-          </p>
+        <div key={repo.id} style={{ marginBottom: "1em" }}>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <h2>
+              <a
+                href={repo.html_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`View ${repo.name} on GitHub`}
+              >
+                {repo.name}
+              </a>
+              <FontAwesomeIcon
+                icon={expandedRepoIds[repo.id] ? faChevronUp : faChevronDown}
+                onClick={() => toggleExpand(repo.id)}
+                style={{ cursor: "pointer", marginLeft: "10px" }}
+                aria-label={`Toggle details for ${repo.name}`}
+              />
+            </h2>
+          </div>
+          {expandedRepoIds[repo.id] && (
+            <div>
+              <p>
+                <strong>Description:</strong> {repo.description || "N/A"}
+              </p>
+              <p>
+                <strong>Language(s) Used:</strong> {repo.language || "N/A"}
+              </p>
+              <p>
+                <strong>Star Count:</strong> {repo.stargazers_count}
+              </p>
+              <p>
+                <strong>Fork Count:</strong> {repo.forks_count}
+              </p>
+            </div>
+          )}
         </div>
       ))}
     </div>

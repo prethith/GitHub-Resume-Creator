@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa"; // Using react-icons for chevron icons
 
 function Projects({ username }) {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [expandedProjects, setExpandedProjects] = useState({});
 
   useEffect(() => {
     async function fetchProjects() {
@@ -27,6 +29,13 @@ function Projects({ username }) {
     fetchProjects();
   }, [username]);
 
+  const toggleExpand = (projectId) => {
+    setExpandedProjects((prev) => ({
+      ...prev,
+      [projectId]: !prev[projectId],
+    }));
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -42,20 +51,41 @@ function Projects({ username }) {
         <p>No projects found.</p>
       ) : (
         projects.map((project) => (
-          <div key={project.id}>
-            <p>
-              <strong>Project Name:</strong>{" "}
-              <a
-                href={project.html_url}
-                target="_blank"
-                rel="noopener noreferrer"
+          <div key={project.id} style={{ marginBottom: "1em" }}>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <p>
+                <strong>Project Name:</strong>{" "}
+                <a
+                  href={project.html_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {project.name}
+                </a>
+              </p>
+              <button
+                onClick={() => toggleExpand(project.id)}
+                style={{
+                  marginLeft: "0.5em",
+                  border: "none",
+                  background: "none",
+                }}
               >
-                {project.name}
-              </a>
-            </p>
-            <p>
-              <strong>Description:</strong> {project.description || "No description available"}
-            </p>
+                {expandedProjects[project.id] ? (
+                  <FaChevronUp />
+                ) : (
+                  <FaChevronDown />
+                )}
+              </button>
+            </div>
+            {expandedProjects[project.id] && (
+              <div>
+                <p>
+                  <strong>Description:</strong>{" "}
+                  {project.description || "No description available"}
+                </p>
+              </div>
+            )}
           </div>
         ))
       )}

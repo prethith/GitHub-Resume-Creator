@@ -1,11 +1,82 @@
+body {
+  background-image: url("./assets/Wallpaper.png");
+  background-size: cover;
+  background-repeat: repeat;
+  background-position: center center;
+  height: 100vh;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  padding: 0;
+  color: #000;
+}
 
-.center-container{
+.profile-navigation {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+  background-color: #f8f9fa;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.nav-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px 10px;
+  font-size: 12px;
+  color: #495057;
+  display: flex;
+  align-items: center;
+  transition: color 0.3s ease;
+}
+
+.nav-button.active {
+  font-weight: bold;
+  color: #007bff;
+  text-decoration: underline;
+}
+
+.nav-button:hover {
+  color: #007bff;
+}
+
+.nav-button .fa-chevron-left,
+.nav-button .fa-chevron-right {
+  margin: 0 5px;
+}
+
+.navigation-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.navigation-buttons button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.navigation-buttons button:hover {
+  background-color: #0056b3;
+}
+
+.center-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
 }
-.form-group{
+
+.form-group {
   display: flex;
   flex-direction: column;
   width: 300px;
@@ -14,7 +85,7 @@
   gap: 10px;
 }
 
-input{
+input {
   width: 100%;
   height: 35px;
   padding: auto;
@@ -26,17 +97,19 @@ input{
   outline: none;
   transition: border-color 0.3s;
 }
-input:focus{
+
+input:focus {
   border-color: #5d81b9;
   box-shadow: 0 0 8px 0 rgb(85, 138, 163);
 }
+
 input::placeholder {
-  color: #a68c8c; /* Placeholder text color */
-  opacity: 1; /* Fully opaque */
+  color: #a68c8c;
+  opacity: 1;
 }
 
-button{
-  background-color:#5d81b9;
+button {
+  background-color: #5d81b9;
   color: rgb(0, 0, 0);
   padding: 15px 32px;
   text-align: center;
@@ -48,21 +121,11 @@ button{
   border-radius: 4px;
   transition: background-color 0.3s;
 }
-button:hover{
+
+button:hover {
   background-color: rgb(229, 176, 229);
 }
-body{
-  background-image: url('./assets/Wallpaper.png');
-  background-size: cover;
-  background-repeat: repeat;
-  background-position: center center;
-  height: 100vh;
-  margin: 0;
-  font-family: Arial, sans-serif;
-  line-height: 1.6;
-  padding: 0;
-  color: #000;
-}
+
 div {
   max-width: 800px;
   margin: 20px auto;
@@ -71,14 +134,15 @@ div {
   border-radius: 8px;
 }
 
-.headline{
+.headline {
   text-align: center;
   font-size: 40px;
   font-family: Georgia;
   color: #0d3b85;
   margin-bottom: 20px;
 }
-.Headsub{
+
+.Headsub {
   font-size: 35px;
   font-family: Georgia;
   border-bottom: 2px solid #eee;
@@ -86,7 +150,8 @@ div {
   padding-bottom: 10px;
   margin-bottom: 10px;
 }
-.sub{
+
+.sub {
   border-bottom: 2px solid #eee;
   color: #1e4f9e;
   padding-bottom: 10px;

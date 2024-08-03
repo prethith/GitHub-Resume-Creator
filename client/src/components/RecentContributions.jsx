@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 
 function RecentContributions({ username }) {
   const [commits, setCommits] = useState([]);
@@ -7,6 +8,9 @@ function RecentContributions({ username }) {
   const [issues, setIssues] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showCommits, setShowCommits] = useState(false);
+  const [showPullRequests, setShowPullRequests] = useState(false);
+  const [showIssues, setShowIssues] = useState(false);
 
   useEffect(() => {
     async function fetchRecentContributions() {
@@ -85,60 +89,101 @@ function RecentContributions({ username }) {
   return (
     <div>
       <h1 className="Headsub">Recent Contributions</h1>
-      <h2 className="sub">Recent Commits</h2>
-      {commits.length === 0 ? (
-        <p>No recent commits found.</p>
-      ) : (
-        commits.map((commit) => (
-          <div key={commit.sha}>
-            <p>
-              {commit.commit.message} -{" "}
-              {new Date(commit.commit.author.date).toLocaleDateString()} -{" "}
-              <a
-                href={commit.html_url}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                View Commit
-              </a>
-            </p>
+
+      <div>
+        <button
+          onClick={() => setShowCommits(!showCommits)}
+          className="toggle-button"
+        >
+          Recent Commits {showCommits ? <FaChevronUp /> : <FaChevronDown />}
+        </button>
+        {showCommits && (
+          <div>
+            {commits.length === 0 ? (
+              <p>No recent commits found.</p>
+            ) : (
+              commits.map((commit) => (
+                <div key={commit.sha}>
+                  <p>
+                    {commit.commit.message} -{" "}
+                    {new Date(commit.commit.author.date).toLocaleDateString()} -{" "}
+                    <a
+                      href={commit.html_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      View Commit
+                    </a>
+                  </p>
+                </div>
+              ))
+            )}
           </div>
-        ))
-      )}
-      <h2 className="sub">Recent Pull Requests</h2>
-      {pullRequests.length === 0 ? (
-        <p>No recent pull requests found.</p>
-      ) : (
-        pullRequests.map((pr) => (
-          <div key={pr.id}>
-            <p>
-              {pr.title} -{" "}
-              <a href={pr.html_url} target="_blank" rel="noopener noreferrer">
-                View Pull Request
-              </a>
-            </p>
+        )}
+      </div>
+
+      <div>
+        <button
+          onClick={() => setShowPullRequests(!showPullRequests)}
+          className="toggle-button"
+        >
+          Recent Pull Requests{" "}
+          {showPullRequests ? <FaChevronUp /> : <FaChevronDown />}
+        </button>
+        {showPullRequests && (
+          <div>
+            {pullRequests.length === 0 ? (
+              <p>No recent pull requests found.</p>
+            ) : (
+              pullRequests.map((pr) => (
+                <div key={pr.id}>
+                  <p>
+                    {pr.title} -{" "}
+                    <a
+                      href={pr.html_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      View Pull Request
+                    </a>
+                  </p>
+                </div>
+              ))
+            )}
           </div>
-        ))
-      )}
-      <h2 className="sub">Recent Issues</h2>
-      {issues.length === 0 ? (
-        <p>No recent issues found.</p>
-      ) : (
-        issues.map((issue) => (
-          <div key={issue.id}>
-            <p>
-              {issue.title} -{" "}
-              <a
-                href={issue.html_url}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                View Issue
-              </a>
-            </p>
+        )}
+      </div>
+
+      <div>
+        <button
+          onClick={() => setShowIssues(!showIssues)}
+          className="toggle-button"
+        >
+          Recent Issues {showIssues ? <FaChevronUp /> : <FaChevronDown />}
+        </button>
+        {showIssues && (
+          <div>
+            {issues.length === 0 ? (
+              <p>No recent issues found.</p>
+            ) : (
+              issues.map((issue) => (
+                <div key={issue.id}>
+                  <p>
+                    {issue.title} -{" "}
+                    <a
+                      href={issue.html_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      View Issue
+                    </a>
+                  </p>
+                </div>
+              ))
+            )}
           </div>
-        ))
-      )}
+        )}
+      </div>
     </div>
   );
 }

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
 
 function Repositories({ username }) {
   const [repos, setRepos] = useState([]);
@@ -10,32 +11,43 @@ function Repositories({ username }) {
   const [expandedRepoIds, setExpandedRepoIds] = useState({});
 
   useEffect(() => {
-    async function fetchRepos() {
-      try {
-        const response = await fetch(
-          `https://api.github.com/users/${username}/repos?sort=updated&per_page=100`,
-          {
-            headers: {
-              Authorization: `token ${import.meta.env.VITE_GITHUB_TOKEN}`,
-            },
-          }
-        );
-        if (!response.ok) {
-          throw new Error(`Error: ${response.status} ${response.statusText}`);
-        }
-        const data = await response.json();
+    const fetchRepos = async () => {
+      const token = localStorage.getItem('github_token');
+      if (!token) {
+        setError('Not authenticated');
+        setLoading(false);
+        return;
+      }
 
-        // Sort repos by star count in descending order
-        const sortedRepos = data.sort(
-          (a, b) => b.stargazers_count - a.stargazers_count
-        );
-        setRepos(sortedRepos);
+      try {
+        const localStorageKey = `repos_${username}`;
+        const cachedRepos = localStorage.getItem(localStorageKey);
+
+        if (cachedRepos) {
+          setRepos(JSON.parse(cachedRepos));
+        } else {
+          const response = await axios.get(
+            `https://api.github.com/users/${username}/repos?sort=updated&per_page=100`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+
+          const sortedRepos = response.data.sort(
+            (a, b) => b.stargazers_count - a.stargazers_count
+          );
+          setRepos(sortedRepos);
+          localStorage.setItem(localStorageKey, JSON.stringify(sortedRepos));
+        }
       } catch (error) {
-        setError(error);
+        setError('Repositories not found');
+        setRepos([]);
       } finally {
         setLoading(false);
       }
-    }
+    };
 
     if (username) {
       fetchRepos();
@@ -54,7 +66,7 @@ function Repositories({ username }) {
   }
 
   if (error) {
-    return <div>Error: {error.message}</div>;
+    return <div>Error: {error}</div>;
   }
 
   if (repos.length === 0) {

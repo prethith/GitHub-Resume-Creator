@@ -48,7 +48,7 @@ git clone https://github.com/tzzkenz/Charlies-angels.git
 ```bash
 git clone git@github.com:tzzkenz/Charlies-angels.git
 ```
-Note: You need a [public key](https://github.com/settings/ssh/new) for this method. 
+**Note**: You need a [public key](https://github.com/settings/ssh/new) for this method. 
 
 #### Clone the repository using GitHubCLI: 
 ```bash

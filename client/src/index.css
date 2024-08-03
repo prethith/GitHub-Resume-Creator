@@ -16,7 +16,6 @@ body {
   line-height: 1.6;
   padding: 0;
   color: #000;
-
 }
 
 .profile-navigation {
@@ -152,7 +151,8 @@ div {
 
 .Headsub {
   font-size: 35px;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   border-bottom: 2px solid #eee;
   color: #0d3b85;
   padding-bottom: 10px;
@@ -165,16 +165,16 @@ div {
   padding-bottom: 10px;
   margin-bottom: 10px;
 }
-a:link{
+a:link {
   color: black;
 }
-a:visited{
+a:visited {
   color: #007bff;
 }
-a:hover{
-  color:rgb(229, 176, 229);
+a:hover {
+  color: rgb(229, 176, 229);
 }
-.toggle-button{
+.toggle-button {
   background-color: #7fa4df;
   color: rgb(0, 0, 0);
   padding: 10px 22px;
